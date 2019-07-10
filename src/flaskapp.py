@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, \
     send_from_directory, abort, request, redirect
 from functools import wraps
-import os
+import sys
 import csv
 import json
 from random import randint
@@ -13,7 +13,8 @@ from random import randint
 # TODO 400 but that must be solvable if programs can be run from the Linux box targeting the 400 DB. If not, can I rip
 # TODO the driver out of the 400 directly and then modify it to run in NT, or is there possibly an open-source driver?
 
-on_400 = os.name == 'posix'
+system_platform = sys.platform
+on_400 = sys.platform == 'aix6'
 
 debug = True
 host = 'localhost'
@@ -226,7 +227,7 @@ def send_files(path, filename):
 
 
 if __name__ == "__main__":
-    print("OS: " + os.name)
+    print("Platform: " + system_platform)
     print("Debug?: " + str(debug))
     print("Host: " + host)
 
