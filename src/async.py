@@ -9,13 +9,18 @@ def slow_method():
     print("Hello, This is ")
 
 
-def main():
+def fake_http_call():
     thread = Thread(target=slow_method)
     thread.start()
 
     print(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'))
-    print("Dog")
+
+    return "Dog"
+
+
+def main():
+    result = fake_http_call()
+    print(result)
 
 
 main()
-
