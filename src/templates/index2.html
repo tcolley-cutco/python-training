@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+          .container
+          {
+              outline: 1px solid black;
+              text-align: center;
+              margin-top: 10px;
+              padding-bottom: 5px;
+          }
+          textarea
+          {
+              min-width: 100%;
+              width: 200px;
+          }
+
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="#">Navbar</a>
+
+    <div class="float-right">
+        <form action="/logout">
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container col-md-4 col-md-offset-4">
+
+    <h2>Supply Form</h2>
+
+    {% if success %}
+        <div class="alert alert-success" role="alert">The supply form has been received!</div>
+    {% endif %}
+
+    {% if errors %}
+        <div class="alert alert-danger" role="alert">
+            <h3> The following errors must be addressed: </h3>
+            {% for error in errors %}
+                <p>{{error}}</p>
+            {%endfor%}
+        </div>
+    {% endif %}
+
+    <form id="supply-form" action="/addSupply" method="post">
+
+        <div class="form-group">
+            <label for="supply_name"> Supply Name: </label>
+            <input type="text" id="supply_name" name="supply_name" value="">
+        </div>
+
+        <div class="form-group">
+            <label for="supply_brand"> Supply Brand: </label>
+            <input type="text" id="supply_brand" name="supply_brand" value="">
+        </div>
+
+        <div class="form-group">
+            <label for="supply_color"> Supply Color: </label>
+            <input type="text" id="supply_color" name="supply_color" value="">
+        </div>
+
+        <div class="form-group">
+            <label for="supply_quantity"> Supply Quantity: </label>
+            <input type="number" id="supply_quantity" name="supply_quantity" value="">
+        </div>
+
+        {% if supply_types %}
+         <div class="form-group">
+            <label for="supply_type"> Supply Type: </label>
+            <select name="supply_type" id="supply_type">
+                {% for supply_type in supply_types %}
+                    <option value="{{supply_type[0]}}">{{supply_type[1]}}</option>
+                {%endfor%}
+            </select>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <input type="radio" id="in_stock" name="in_stock" value="Y">
+            <label for="in_stock">In Stock</label>
+            <input type="radio" id="out_of_stock" name="in_stock" value="N">
+            <label for="out_of_stock">Out of Stock</label>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" id="is_backordered" name="is_backordered" value="Y">
+            <label for="is_backordered">On Backorder?</label>
+        </div>
+
+        <div class="form-group">
+            <label style="display:block;" for="notes">Special Notes for this Item </label>
+            <textarea id="notes" name="notes" rows="4" cols="40"></textarea>
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-primary" id="submit-button" type="submit" value="Submit">
+        </div>
+
+
+    </form>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

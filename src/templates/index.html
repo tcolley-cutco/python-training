@@ -1,0 +1,92 @@
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="res/css/default.css">
+	<link rel="stylesheet" href="res/css/marquee.css">
+
+	<script
+	src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+	
+	<script src="res/js/sparkle-cursor.js"></script>
+	
+	<script src="res/js/default.js"></script>
+	
+	<style>
+
+	
+	
+	img
+	{
+		max-width: 500px;
+	}
+	
+	.wrapper 
+	{
+	  position: absolute;
+	  line-height: 20px;
+	  font-size: 14px;
+	  left: 20px;
+	  top: 20px;
+	  padding-bottom: 25px;
+	}
+	
+	#shopping-list
+	{
+		list-style: none;
+		padding: 0px;
+	}
+	</style>
+	
+	<script>
+	
+	
+	</script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<h2> Hello{{ name }}. Welcome to Web 3.0!</h2>
+
+		{% for row in rows %}
+			<div>{{ row[2] }}</div>
+		{% endfor %}
+
+
+		<img src="res/img/bob-ross.jpg">
+
+		<p class="marquee"> <span> Shopping List </span> </p>
+		<ul id="shopping-list">
+			<li> Milk </li>
+			<li> <a href="/cookies">Cookies</a> </li>
+			<li>
+				<a target="_blank" id="ibm-support" href="https://www.itjungle.com/"> IBM's official support site </a>
+			</li>
+		</ul>
+
+		<div>
+			<label for="eight-ball-query">
+				Ask The Magic 8 Ball a Yes/No Question:
+			</label>
+			<input id="eight-ball-query">
+
+			<div>Answer: <span id="eight-ball-answer"></span></div>
+		</div>
+	</div>
+	
+	<div class="modal-bg">
+		<div class="modal">
+			<span class="modal-exit">X</span>
+			<img class="ashton" src="res/img/ashton-kutcher.jpg">
+		</div>
+	</div>
+	
+	<span class="container"></span>
+</body>
+
+
+</html>
+
+
