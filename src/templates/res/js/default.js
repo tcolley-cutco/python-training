@@ -28,6 +28,7 @@ $( document ).ready(function()
 	});
 });
 
+
 function showModal()
 {
 	$(".modal").addClass("active");
