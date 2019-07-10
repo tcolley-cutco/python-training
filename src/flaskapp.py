@@ -4,6 +4,7 @@ from functools import wraps
 import sys
 import csv
 import json
+import conn_util
 from random import randint
 
 
@@ -13,29 +14,8 @@ from random import randint
 # TODO 400 but that must be solvable if programs can be run from the Linux box targeting the 400 DB. If not, can I rip
 # TODO the driver out of the 400 directly and then modify it to run in NT, or is there possibly an open-source driver?
 
-system_platform = sys.platform
-on_400 = sys.platform == 'aix6'
-
-debug = True
-host = 'localhost'
-if on_400:
-    debug = False
-    host = '0.0.0.0'
-    # DB imports
-    import ibm_db_dbi as dbi
-    from ibm_db_dbi import SQL_ATTR_DBC_SYS_NAMING, SQL_TRUE
-    from ibm_db_dbi import SQL_ATTR_TXN_ISOLATION, SQL_TXN_NO_COMMIT
-
-
 app = Flask(__name__)
-
-if on_400:
-    options = {
-        SQL_ATTR_TXN_ISOLATION: SQL_TXN_NO_COMMIT,
-        SQL_ATTR_DBC_SYS_NAMING: SQL_TRUE,
-    }
-    conn = dbi.connect()
-    conn.set_option(options)
+conn = conn_util.fetch_db2_connection()
 
 
 def login_required(f):
@@ -50,7 +30,7 @@ def login_required(f):
 def close(cursor):
     if cursor:
         try:
-            cursor.close();
+            cursor.close()
         except Exception as e:
             print("Couldn't close cursor due to " + str(e))
 
@@ -169,7 +149,7 @@ def authenticate_user(username, password):
 
         cursor = None
         try:
-            cursor = dbi.connect(user=username, password=password)
+            cursor = conn_util.fetch_db2_connection_with_credentials(username, password)
             is_authenticated = True     # If we reach this line, it didn't throw an exception. We're good to go
         except Exception as e:
             print(str(e) + " | User couldn't sign on because the user/pass combo were invalid!")
@@ -227,6 +207,16 @@ def send_files(path, filename):
 
 
 if __name__ == "__main__":
+
+    system_platform = sys.platform
+    on_400 = system_platform == 'aix6'
+
+    debug = True
+    host = 'localhost'
+    if on_400:
+        debug = False
+        host = '0.0.0.0'
+
     print("Platform: " + system_platform)
     print("Debug?: " + str(debug))
     print("Host: " + host)
