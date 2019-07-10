@@ -5,12 +5,12 @@ $( document ).ready(function()
 		e.preventDefault();
 		showModal();
 	});
-	
+
 	$(".modal-exit").click(function(e) 
 	{
 		hideModal();
 	});
-	
+
 	$(".modal-bg").click(function(e) 
 	{
 		hideModal();
@@ -18,14 +18,14 @@ $( document ).ready(function()
 
 	$("#eight-ball-query").on('keyup', function (e)
 	{
-        if (e.keyCode == 13)
-        {
-            $.get( "/eight-ball", function( data )
-            {
-                $( "#eight-ball-answer" ).html( data );
-            });
-        }
-    });
+		if (e.keyCode == 13)
+	    	{
+			$.get( "/eight-ball", function( data )
+			{
+		    		$( "#eight-ball-answer" ).html( data );
+			});
+	    	}
+	});
 });
 
 function showModal()
